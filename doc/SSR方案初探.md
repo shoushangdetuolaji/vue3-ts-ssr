@@ -73,3 +73,21 @@ Vue、React的SSR方案实际上就是同构渲染，我们现在讲的服务端
 
 ### nuxt3 beta： 基本原理、应用场景
 
+切换npm包环境
+
+`nvm use 16.11.0`
+
+安装
+
+`npx nuxi init nuxt3-app`   nuxt3-app为项目名称
+
+```
+cd nuxt3-app
+
+yarn install
+
+yarn dev
+```
+
+
+
