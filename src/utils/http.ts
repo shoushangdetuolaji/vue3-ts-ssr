@@ -45,4 +45,4 @@ class Http {
   }
 }
 
-export const htpp = new Http()
+export const http = new Http()
