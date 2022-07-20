@@ -13,6 +13,11 @@ const router = useRouter()
   <router-view />
 </template>
 
-<style>
-
+<style lang="scss">
+#app {
+  button {
+    font-size: 40px;
+    color: $red;
+  }
+}
 </style>

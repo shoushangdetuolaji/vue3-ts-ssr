@@ -1,0 +1,12 @@
+.home {
+  background-color: aqua;
+}
+
+button {
+  color: $red;
+}
+
+.text {
+  @include line-text-overflow;
+  width: 100px;
+}

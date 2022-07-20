@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import path from 'path'
+import * as path from 'path'
 
 // element-plus 按需加载
 import AutoImport from 'unplugin-auto-import/vite'
@@ -27,7 +27,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: ''
+        additionalData: '@import "@/assets/scss/variable.scss";@import "@/assets/scss/main.scss";'
       }
     }
   }
