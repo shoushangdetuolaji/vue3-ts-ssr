@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRouter, useRoute } from 'vue-router'
 import { h, getCurrentInstance } from 'vue'
+import { fetchRoomList } from '../../api/index'
 const router = useRouter()
 const route = useRoute()
 console.log(route.params)
@@ -13,6 +14,11 @@ proxy.$message({
     h('i', { style: 'color: teal' }, 'VNode')
   ])
 })
+
+const getRoomList = () => {
+  fetchRoomList()
+}
+getRoomList()
 </script>
 
 <template>
@@ -22,6 +28,11 @@ proxy.$message({
     <el-button>Default</el-button>
     <el-button type="primary">Primary</el-button>
     <div class="text">十大阿三大苏打十大阿三大苏打十大阿三大苏打十大阿三大苏打十大阿三大苏打十大阿三大苏打十大阿三大苏打十大阿三大苏打十大阿三大苏打</div>
+    <el-date-picker
+      type="week"
+      format="[Week] ww"
+      placeholder="Pick a week"
+    />
   </div>
 </template>
 
