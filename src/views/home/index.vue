@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { h, getCurrentInstance } from 'vue'
 import { fetchRoomList } from '../../api/index'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+console.log(useI18n)
 const router = useRouter()
-const route = useRoute()
-console.log(route.params)
 
 const { proxy }: any = getCurrentInstance() // 用proxy来代替this
 
@@ -23,7 +25,7 @@ getRoomList()
 
 <template>
   <div class="home">
-    首页
+    {{ t('message.home')}}
     <button @click="() => router.push({ path: '/mine', query: {id: 1}})">跳转个人中心</button>
     <el-button>Default</el-button>
     <el-button type="primary">Primary</el-button>
