@@ -98,6 +98,7 @@ export default class DB {
       }
       request.onerror = (event: any) => {
         console.log('查询某一条数据失败')
+        console.log(event)
         reject(event)
       }
     })
