@@ -27,7 +27,9 @@ const changeLang = (language: any) => {
     <button @click="() => router.push({path:'/home'})">首页</button>
     <button @click="() => router.push({path:'/mine'})">个人中心</button> -->
     <headerCommon @changeLang="changeLang"/>
-    <router-view />
+    <div class="container">
+      <router-view />
+    </div>
     <footerCommon />
   </el-config-provider>
 </template>

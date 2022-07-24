@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 const footerMenu = reactive(
   [
     {
@@ -96,19 +99,21 @@ const footerMenu = reactive(
 
 <template>
   <div class="footer-common">
-    <ul>
-      <li v-for="(item, index) in footerMenu" :key="index">
-        <h4>{{ item.title }}</h4>
-        <a
-          target="_blank"
-          href="itemInner.link"
-          v-for="(itemInner, indexInner) in item.menus"
-          :key="indexInner">
-          {{ itemInner.name }}
-        </a>
-      </li>
-    </ul>
-    <div class="copy-right">@ 2022 0.0, Inc . All rights reserved.</div>
+    <div class="inner-footer">
+      <ul>
+        <li v-for="(item, index) in footerMenu" :key="index">
+          <h4>{{ t(`footer['${item.title}']`) }}</h4>
+          <a
+            target="_blank"
+            href="itemInner.link"
+            v-for="(itemInner, indexInner) in item.menus"
+            :key="indexInner">
+            {{ t(`footer['${itemInner.name}']`) }}
+          </a>
+        </li>
+      </ul>
+      <div class="copy-right">@ 2022 0.0, Inc . All rights reserved.</div>
+    </div>
   </div>
 </template>
 
