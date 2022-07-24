@@ -6,7 +6,8 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import en from 'element-plus/es/locale/lang/en'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import headerCommon from './components/layout/headerCommon.vue'
+import headerCommon from './components/layout/commonHeader.vue'
+import footerCommon from './components/layout/commonFooter.vue'
 
 const { locale: localeLanguage } = useI18n()
 // const router = useRouter()
@@ -27,6 +28,7 @@ const changeLang = (language: any) => {
     <button @click="() => router.push({path:'/mine'})">个人中心</button> -->
     <headerCommon @changeLang="changeLang"/>
     <router-view />
+    <footerCommon />
   </el-config-provider>
 </template>
 
