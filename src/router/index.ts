@@ -1,5 +1,6 @@
 import home from '@/views/home/index.vue'
 import mine from '@/views/mine/index.vue'
+import login from '@/views/login/index.vue'
 import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
 
 const routes = [
@@ -20,6 +21,15 @@ const routes = [
       title: '',
       keepAlive: false
     }
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: login,
+    meta: {
+      title: '',
+      keepAlive: false
+    }
   }
 ]
 
@@ -28,4 +38,4 @@ const router = createRouter({
   routes
 })
 
-export default router 
+export default router
