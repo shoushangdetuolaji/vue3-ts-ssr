@@ -6,7 +6,7 @@ export default class DB {
   }
 
   // 打开数据库
-  openStore(storeName: string, keyPath: string, indexs?: Array<string>) {
+  openStore(stores: any) {
     const request = window.indexedDB.open(this.dbName, 2)
     return new Promise((resolve, reject) => {
       request.onsuccess = (event: any) => {
@@ -21,17 +21,27 @@ export default class DB {
       request.onupgradeneeded = (event) => {
         console.log('数据库升级成功')
         const { result }: any = event.target
-        const store = result.createObjectStore(storeName, { autoIncrement: true, keyPath })
-        if (indexs && indexs.length > 0) {
-          indexs.map((v: string) => {
-            store.createIndex(v, v, { unique: false })
-          })
+        for (const storeName in stores) {
+          // 初始化多个objectStore对象仓库
+          const { keyPath, indexs } = stores[storeName]
+          if (!result.objectStoreNames.containes(storeName)) {
+            // 没有表则新建表
+            // keyPath: 主键， 主键(key)是默认建立索引的属性：
+            // autoIncrement： 是否自增;
+            // createObjectStore 会返回一个对象仓库objectStore
+            const store = result.createObjectStore(storeName, { autoIncrement: true, keyPath})
+            if (indexs && indexs.length) {
+              indexs.map((v: string) =>
+                // createIndex可以新建索引，unique字段是否唯一
+                store.createIndex(v, v, { unique: false })
+              )
+            }
+            // transaction result底下的方法事务回调放法
+            store.transaction.oncomplete = (event: any) => {
+              console.log('创建对象仓库成功')
+            }
+          }
         }
-        // transaction result底下的方法事务回调放法
-        store.transaction.oncomplete = (event: any) => {
-          console.log('创建对象仓库成功')
-        }
-        console.log(event)
       }
     })
   }
