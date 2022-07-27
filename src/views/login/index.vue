@@ -1,9 +1,16 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-const activeName = ref('login')
+import { useI18n } from 'vue-i18n'
 
+interface IRuleForm {
+  mobile: string,
+  password: string
+}
+const { t } = useI18n()
+const activeName = ref('login')
+const loginText = ref(t('login.loginBtn'))
 const ruleFormRef = ref()
-const ruleForm = reactive({
+const ruleForm: IRuleForm = reactive({
   mobile: '',
   password: ''
 })
@@ -13,21 +20,22 @@ const rules = reactive({
       required: true,
       min: 11,
       max: 11,
-      messsage: '请输入正确的手机号码',
+      messsage: t('login.placeMobile'),
       trigger: 'blur'
     }
   ],
   password: [
     {
       required: true,
-      messsage: '请输入正确的密码',
+      messsage: t('login.placePass'),
       trigger: 'blur'
     }
   ]
 })
 
 function handClick(e: any) {
-  console.log(e)
+  const { name } = e.props
+  loginText.value = t(`login['${name}Btn']`)
 }
 
 function submitForm() {
@@ -48,8 +56,8 @@ function submitForm() {
       <div class="login-panel">
         <!-- tabs -->
         <el-tabs v-model="activeName" @tab-click="handClick">
-          <el-tab-pane label="登录" name="login"></el-tab-pane>
-          <el-tab-pane label="注册" name="sign"></el-tab-pane>
+          <el-tab-pane :label="t('login.loginTab')" name="login"></el-tab-pane>
+          <el-tab-pane :label="t('login.signTab')" name="sign"></el-tab-pane>
         </el-tabs>
         <!-- 表单组件 -->
         <el-form
@@ -58,13 +66,13 @@ function submitForm() {
           :rules="rules"
           label-width="120px">
           <el-form-item prop="mobile">
-            <el-input placeholder="请输入正确的手机号" v-model="ruleForm.mobile"></el-input>
+            <el-input :placeholder="t('login.placeMobile')" v-model="ruleForm.mobile"></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input placeholder="请输入正确的密码" v-model="ruleForm.password"></el-input>
+            <el-input type="password" :placeholder="t('login.placePass')" v-model="ruleForm.password"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button @click="submitForm()">登录</el-button>
+            <el-button @click="submitForm()">{{ loginText }}</el-button>
           </el-form-item>
         </el-form>
       </div>

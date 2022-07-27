@@ -92,7 +92,7 @@ export default class DB {
       }
       request.onerror = (event: any) => {
         console.log('查询所有数据失败')
-        resolve(event)
+        reject(event)
       }
     })
   }

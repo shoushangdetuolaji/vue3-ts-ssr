@@ -4,8 +4,10 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import en from 'element-plus/es/locale/lang/en'
 import { fetchLanguageApi, saveLanguageApi } from '../../api/layout'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
+const router = useRouter()
 const activeIndex = ref('orders')
 
 const emit = defineEmits<{(e: 'changeLang', language: any): void}>()
@@ -17,6 +19,8 @@ function handleSelect(e: any) {
   } else if (e === 'en') {
     emit('changeLang', en)
     saveLanguage('en')
+  } else if (e === 'login') {
+    router.push({name: 'login'})
   }
   console.log(e)
 }
@@ -47,7 +51,7 @@ function getLanguage() {
   })
 }
 
-getLanguage()
+// getLanguage()
 
 </script>
 
@@ -70,6 +74,7 @@ getLanguage()
       <el-menu-item index="avatar">
         <img class="avatar" src="../../assets/images/layout/avatar.jpg" alt="个人中心">
       </el-menu-item>
+      <el-menu-item index="login" >{{ t("login.loginTab") }}/{{ t("login.signTab") }}</el-menu-item>
     </el-menu>
   </div>
 </template>
