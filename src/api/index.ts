@@ -12,9 +12,9 @@ export function fetchRoomList() {
 
 // Mock接口
 export async function fetchElephant() {
-  await airbnbDB.openStore('elephant', 'id', ['nose', 'ear'])
-  const result = await airbnbDB.getList('elephant').then(res => {
-    return { code: '000000', message: '操作成功', result: res, success: true }
-  })
-  return result
+  // await airbnbDB.openStore('elephant', 'id', ['nose', 'ear'])
+  // const result = await airbnbDB.getList('elephant').then(res => {
+  //   return { code: '000000', message: '操作成功', result: res, success: true }
+  // })
+  // return result
 }
