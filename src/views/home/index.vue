@@ -3,10 +3,12 @@ import { useRouter } from 'vue-router'
 import { h, getCurrentInstance } from 'vue'
 import { fetchRoomList, fetchElephant } from '../../api/index'
 import { useI18n } from 'vue-i18n'
+import { useStore } from 'vuex'
 
 const { t } = useI18n()
 console.log(useI18n)
 const router = useRouter()
+const store = useStore()
 
 const { proxy }: any = getCurrentInstance() // 用proxy来代替this
 
@@ -33,11 +35,21 @@ function getElephant() {
 }
 getElephant()
 
+function setMutataion() {
+  store.commit('setCount', 2)
+}
+
+function setAction() {
+  store.dispatch('fetchCount', 10)
+}
+
 </script>
 
 <template>
   <div class="home">
     {{ t('message.home')}}
+    <el-button @click="setMutataion">mutataion</el-button>
+     <el-button  @click="setAction">action</el-button>
     <button @click="() => router.push({ path: '/mine', query: {id: 1}})">跳转个人中心</button>
     <el-button>Default</el-button>
     <el-button type="primary">Primary</el-button>

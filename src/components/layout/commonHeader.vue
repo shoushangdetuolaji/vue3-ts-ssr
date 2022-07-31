@@ -7,11 +7,13 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { userLogoutApi } from '@/api/login'
 import { IResultOr } from '@/api/interface'
+import { useStore } from 'vuex'
 
 const { t } = useI18n()
 const router = useRouter()
 const { proxy }: any = getCurrentInstance()
 const activeIndex = ref('orders')
+const store = useStore()
 
 const emit = defineEmits<{(e: 'changeLang', language: any): void}>()
 
@@ -79,6 +81,7 @@ function userLogout() {
 
 <template>
   <div class="header-common">
+    --- {{store.state.count}}---
     <img class="logo" src="../../assets/images/layout/logo.png" alt="爱此迎">
     <el-menu
       :default-active="activeIndex"
