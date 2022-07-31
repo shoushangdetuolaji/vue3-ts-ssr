@@ -1,51 +1,23 @@
 <script setup lang="ts">
-import { reactive, ref, getCurrentInstance } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { userLoginApi, userSignApi } from '@/api/login'
-import { IResultOr } from '@/api/interface'
 import { useRouter } from 'vue-router'
-
-interface IRuleForm {
-  mobile: string,
-  password: string
-}
+import userFormProperties from '@/composables/login/userFormProperties'
+import userFormOperates from '@/composables/login/userFormOperates'
 const router = useRouter()
 const { t } = useI18n()
-const { proxy }: any = getCurrentInstance()
-const activeName = ref('login')
-const loginText = ref(t('login.loginBtn'))
-const ruleFormRef = ref()
-const ruleForm: IRuleForm = reactive({
-  mobile: '',
-  password: ''
-})
-const rules = reactive({
-  mobile: [
-    {
-      required: true,
-      min: 11,
-      max: 11,
-      messsage: t('login.placeMobile'),
-      trigger: 'blur'
-    }
-  ],
-  password: [
-    {
-      required: true,
-      messsage: t('login.placePass'),
-      trigger: 'blur'
-    }
-  ]
-})
+
+const { ruleForm, loginText, ruleFormRef, activeName } = userFormProperties(t)
+const { userSign, userLogin } = userFormOperates(router, ruleForm)
 
 function handClick(e: any) {
-  const { name, label } = e.props
-  if (name === 'login') {
-    loginText.value = t('login.loginBtn')
-  } else if (name === 'sign') {
-    loginText.value = t('login.signBtn')
-  }
-  console.log(name, label)
+  const { name } = e.props
+  // if (name === 'login') {
+  //   loginText.value = t('login.loginBtn')
+  // } else if (name === 'sign') {
+  //   loginText.value = t('login.signBtn')
+  // }
+  // console.log(name, label)
+  loginText.value = t(`login['${name}Btn']`)
 }
 
 function submitForm() {
@@ -58,33 +30,6 @@ function submitForm() {
       }
     } else {
       return false
-    }
-  })
-}
-
-// 注册接口
-function userSign(params: IRuleForm) {
-  userSignApi(params).then((res: IResultOr) => {
-    const { success, message } = res
-    if (success) {
-      proxy.$message.success(message)
-    } else {
-      proxy.$message.error(message)
-    }
-  })
-}
-
-// 登录接口
-function userLogin(params: IRuleForm) {
-  userLoginApi(params).then((res: IResultOr) => {
-    const { success, message, result } = res
-    const { status } = result
-    if (success) {
-      localStorage.setItem('userStatus', status)
-      router.push({ name: 'home' })
-      proxy.$message.success(message)
-    } else {
-      proxy.$message.error(message)
     }
   })
 }
