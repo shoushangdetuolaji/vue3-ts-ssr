@@ -1,6 +1,7 @@
 import { getCurrentInstance } from 'vue'
 import { IResultOr } from '@/api/interface'
 import { userLoginApi, userSignApi } from '@/api/login'
+import { useStore } from 'vuex'
 interface IRuleForm {
   mobile: string,
   password: string
@@ -8,6 +9,7 @@ interface IRuleForm {
 
 export default function userFormOperates(router: any, params: IRuleForm) {
   const { proxy }: any = getCurrentInstance()
+  const store = useStore()
   // 注册接口
   function userSign(params: IRuleForm) {
     userSignApi(params).then((res: IResultOr) => {
@@ -26,7 +28,8 @@ export default function userFormOperates(router: any, params: IRuleForm) {
       const { success, message, result } = res
       const { status } = result
       if (success) {
-        localStorage.setItem('userStatus', status)
+        // localStorage.setItem('userStatus', status)
+        store.commit('setUserStatus', status)
         router.push({ name: 'home' })
         proxy.$message.success(message)
       } else {

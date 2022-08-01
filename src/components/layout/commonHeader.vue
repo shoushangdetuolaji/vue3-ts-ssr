@@ -9,23 +9,27 @@ import { userLogoutApi } from '@/api/login'
 import { IResultOr } from '@/api/interface'
 import { useStore } from 'vuex'
 
-const { t } = useI18n()
 const router = useRouter()
 const { proxy }: any = getCurrentInstance()
 const activeIndex = ref('orders')
 const store = useStore()
 
 const emit = defineEmits<{(e: 'changeLang', language: any): void}>()
+const { locale: localeLanguage, t } = useI18n()
 
 function handleSelect(e: any) {
   if (e === 'zh') {
-    emit('changeLang', zhCn)
-    saveLanguage('zhCn')
+    // emit('changeLang', zhCn)
+    // saveLanguage('zhCn')
+    store.dispatch('saveLanguage', zhCn)
+    localeLanguage.value = e
   } else if (e === 'en') {
-    emit('changeLang', en)
-    saveLanguage('en')
+    // emit('changeLang', en)
+    // saveLanguage('en')
+    store.dispatch('saveLanguage', en)
+    localeLanguage.value = e
   } else if (e === 'login') {
-    router.push({name: 'login'})
+    router.push({ name: 'login' })
   } else if (e === 'logout') {
     userLogout()
   }
@@ -33,14 +37,14 @@ function handleSelect(e: any) {
 }
 
 // MoCK接口: 保存当前语言包
-function saveLanguage(language: any) {
-  saveLanguageApi(language).then(res => {
-    const { success } = res
-    if (success) {
-      console.log('保存当前语言包成功')
-    }
-  })
-}
+// function saveLanguage(language: any) {
+//   saveLanguageApi(language).then(res => {
+//     const { success } = res
+//     if (success) {
+//       console.log('保存当前语言包成功')
+//     }
+//   })
+// }
 
 // Mock接口: 获取当前语言包
 function getLanguage() {
@@ -69,8 +73,9 @@ function userLogout() {
     if (success) {
       proxy.$message.success(message)
       // 修改登录状态
-      localStorage.setItem('userStatus', 0)
+      // localStorage.setItem('userStatus', 0)
       router.push({ name: 'login' })
+      store.commit('setUserStatus', 0)
     } else {
       proxy.$message.error(message)
     }
@@ -81,7 +86,6 @@ function userLogout() {
 
 <template>
   <div class="header-common">
-    --- {{store.state.count}}---
     <img class="logo" src="../../assets/images/layout/logo.png" alt="爱此迎">
     <el-menu
       :default-active="activeIndex"
@@ -96,7 +100,7 @@ function userLogout() {
         <el-menu-item index="zh">中文</el-menu-item>
         <el-menu-item index="en">English</el-menu-item>
       </el-sub-menu>
-      <el-sub-menu index="avatar" v-if="userStatus === '1'">
+      <el-sub-menu index="avatar" v-if="store.state.userStatus === 1">
         <template #title>
           <img class="avatar" src="../../assets/images/layout/avatar.jpg" alt="个人中心" />
         </template>
