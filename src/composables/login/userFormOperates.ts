@@ -2,6 +2,8 @@ import { getCurrentInstance } from 'vue'
 import { IResultOr } from '@/api/interface'
 import { userLoginApi, userSignApi } from '@/api/login'
 import { useStore } from 'vuex'
+import { key } from '@/store'
+
 interface IRuleForm {
   mobile: string,
   password: string
@@ -9,7 +11,7 @@ interface IRuleForm {
 
 export default function userFormOperates(router: any, params: IRuleForm) {
   const { proxy }: any = getCurrentInstance()
-  const store = useStore()
+  const store = useStore(key)
   // 注册接口
   function userSign(params: IRuleForm) {
     userSignApi(params).then((res: IResultOr) => {

@@ -7,7 +7,7 @@
 // import { ref } from 'vue'
 // import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
-import { useStore } from 'vuex'
+import { useStore } from '@/store'
 import headerCommon from './components/layout/commonHeader.vue'
 import footerCommon from './components/layout/commonFooter.vue'
 

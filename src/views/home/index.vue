@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router'
 import { h, getCurrentInstance } from 'vue'
 import { fetchRoomList, fetchElephant } from '../../api/index'
 import { useI18n } from 'vue-i18n'
-import { useStore } from 'vuex'
+import { useStore } from '@/store'
 
 const { t } = useI18n()
 console.log(useI18n)

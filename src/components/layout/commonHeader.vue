@@ -7,7 +7,7 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { userLogoutApi } from '@/api/login'
 import { IResultOr } from '@/api/interface'
-import { useStore } from 'vuex'
+import { useStore } from '@/store'
 
 const router = useRouter()
 const { proxy }: any = getCurrentInstance()
