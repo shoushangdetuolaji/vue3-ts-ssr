@@ -32,16 +32,6 @@ export function createApp() {
   const router = createSSRRouter()
   const i18n = createSSRI18n()
 
-  router.beforeEach((to, from, next) => {
-    airbnb.airbnbDB.openStore({
-      ...airbnb.languageObjectStore,
-      ...airbnb.userObjectStore
-    }).then((res: any) => {
-      console.log('初始化所有对象仓库', res)
-      next()
-    })
-  })
-
   app.config.globalProperties.$message = ElMessage
   app.use(store, key)
   app.use(router)

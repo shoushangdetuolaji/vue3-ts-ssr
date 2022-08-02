@@ -25,7 +25,7 @@ const store = useStore()
 
 <template>
   <el-config-provider :locale="store.state.locale">
-    <headerCommon v-show="route.fullPath.indexOf('login') === -1" @changeLang="changeLang"/>
+    <headerCommon v-show="route.fullPath.indexOf('login') === -1" />
     <div class="container">
       <router-view />
     </div>

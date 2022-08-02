@@ -42,7 +42,9 @@ const routes = [
 
 export function createSSRRouter() {
   return createRouter({
-    history: createWebHistory(),
+    // 在客户端渲染使用createWebHistory方法
+    // 在服务端需要使用createMemoryHistory方法
+    history: import.meta.env.SSR ? createMemoryHistory() : createWebHistory(),
     routes
   })
 }
