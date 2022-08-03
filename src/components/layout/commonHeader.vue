@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, defineEmits, getCurrentInstance } from 'vue'
-import zhCn from 'element-plus/es/locale/lang/zh-cn'
-import en from 'element-plus/es/locale/lang/en'
+import zhCn from 'element-plus/dist/locale/zh-cn.js'
+import en from 'element-plus/dist/locale/en.js'
 import { fetchLanguageApi, saveLanguageApi } from '../../api/layout'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
