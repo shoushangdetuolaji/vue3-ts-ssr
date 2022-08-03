@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "dev:ssr": "node server",
-    "pro:ssr": "node server",
+    "dev:ssr": "cross-env NODE_ENV=development node server",
+    "prod:ssr": "cross-env NODE_ENV=production node server",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "build:client": "vite build --outDir dist/client",
