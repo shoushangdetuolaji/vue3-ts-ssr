@@ -60,14 +60,17 @@ export function createSSRStore() {
         })
       },
       getRoomList({ commit }) {
-        fetchRoomList().then(res => {
-          const { success, result } = res
-          let orders = result.orders
-          if (success) {
-            this.commit('setRoomList', orders)
-            console.log('获取当前房屋列表成功')
-            console.log('保存到vuex中', orders)
-          }
+        return new Promise(resolve => {
+          fetchRoomList().then(res => {
+            const { success, result } = res
+            const orders = result.orders
+            if (success) {
+              this.commit('setRoomList', orders.data)
+              console.log('获取当前房屋列表成功')
+              console.log('保存到vuex中', orders.data)
+              resolve(true)
+            }
+          })
         })
       }
     }

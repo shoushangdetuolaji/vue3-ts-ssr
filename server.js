@@ -7,7 +7,7 @@ const { createServer: createViteServer } = require('vite')
 const isProd = process.env.NODE_ENV === 'production'
 
 async function createServer() {
-  const app = express() 
+  const app = express()
   // 以中间件模式创建 Vite 应用，这将禁用 Vite 自身的 HTML 服务逻辑
   // 并让上级服务器接管控制
   //
@@ -56,9 +56,9 @@ async function createServer() {
       // 4. 渲染应用的 HTML。这假设 entry-server.js 导出的 `render`
       //    函数调用了适当的 SSR 框架 API。
       //    例如 ReactDOMServer.renderToString()
-      const appHtml = await render(url)
+      const { appHtml, state } = await render(url)
       // 5. 注入渲染后的应用程序 HTML 到模板中。
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml)
+      const html = template.replace(`<!--ssr-outlet-->`, appHtml).replace('\'<!--vuex-state-->\'', JSON.stringify(state))
       // 6. 返回渲染后的 HTML。
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {
