@@ -1,4 +1,15 @@
-<script setup lang="ts">
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  setup() {
+
+  },
+  asyncData({ store, route }: any) {
+    console.log('asyncData----', store, route)
+    return store.dispatch('getRoomList')
+  }
+})
 
 </script>
 

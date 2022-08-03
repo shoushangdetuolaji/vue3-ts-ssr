@@ -1,12 +1,14 @@
 import { saveLanguageApi } from '@/api/layout'
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
 import { InjectionKey } from 'vue'
+import { fetchRoomList } from '@/api/index'
 
 // 为store state 声明类型
 export interface AllStateTypes {
   count: number,
   locale: any,
-  userStatus: Number
+  userStatus: Number,
+  roomList: Array<any>
 }
 
 // 定义 injection key
@@ -21,7 +23,8 @@ export function createSSRStore() {
     state: {
       count: 1,
       locale: null, // 语言包
-      userStatus: 0 // 登录态
+      userStatus: 0, // 登录态
+      roomList: []
     },
     mutations: {
       setCount(state, payload) {
@@ -35,6 +38,10 @@ export function createSSRStore() {
       setUserStatus(state, payload) { // 设置登录态
         state.userStatus = payload
         return state.userStatus
+      },
+      setRoomList(state, payload) { // 设置房屋列表数据
+        state.roomList = payload
+        return state.roomList
       }
     },
     actions: {
@@ -49,6 +56,17 @@ export function createSSRStore() {
           if (success) {
             this.commit('setLanguage', language)
             console.log('保存当前语言包成功')
+          }
+        })
+      },
+      getRoomList({ commit }) {
+        fetchRoomList().then(res => {
+          const { success, result } = res
+          let orders = result.orders
+          if (success) {
+            this.commit('setRoomList', orders)
+            console.log('获取当前房屋列表成功')
+            console.log('保存到vuex中', orders)
           }
         })
       }
