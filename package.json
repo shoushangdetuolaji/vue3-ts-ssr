@@ -4,8 +4,12 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
+    "dev:ssr": "node server",
+    "pro:ssr": "node server",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:client": "vite build --outDir dist/client",
+    "build:server": "vite build --outDir dist/server --ssr src/entry-server.ts"
   },
   "dependencies": {
     "axios": "^0.27.2",
@@ -20,6 +24,7 @@
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
     "@vitejs/plugin-vue": "^2.3.3",
+    "cross-env": "^7.0.3",
     "eslint": "^8.19.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
