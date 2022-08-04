@@ -16,7 +16,7 @@ function changePage(pageNo: number) {
 
 <template>
   <el-pagination
-    :current-page="pageNo"
+    v-model:current-page="pageNo"
     :page-size="pageSize"
     :total="total"
     background

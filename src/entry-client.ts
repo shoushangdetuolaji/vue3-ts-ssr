@@ -1,10 +1,10 @@
-import { createApp } from './main'
+import { createApp, asyncDataFilter } from './main'
 import airbnb from './db' // 引入数据库和对象仓库
 
 const { app, router, store } = createApp()
 
-if (window.__INITIAL_STATE__) {
-  store.replaceState(window.__INITIAL_STATE__)
+if ((window as any).__INITIAL_STATE__) {
+  store.replaceState((window as any).__INITIAL_STATE__)
 }
 
 router.beforeEach((to, from, next) => {
@@ -31,15 +31,8 @@ router.isReady().then(() => {
       return next()
     }
     console.log('开始loading....')
-    Promise.all(actived.map((Component: any) => {
-      if (Component.asyncData) {
-        return Component.asyncData({
-          store,
-          route: router.currentRoute
-        })
-      }
-    })).then(() => {
-      console.log('结束loading....')
+    asyncDataFilter(actived, store, router.currentRoute).then(() => {
+      console.log('结束loading.....')
       next()
     })
   })

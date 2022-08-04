@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { IRoomListParams } from '@/api/interface'
 import { useStore } from '@/store'
 import { ref } from 'vue'
 const store = useStore()
@@ -33,12 +34,12 @@ function cityClick(tab: any) {
   store.dispatch('getRoomList', {
     pageNo: 1,
     cityCode: name
-  })
+  } as IRoomListParams)
 }
 </script>
 <template>
   <!-- 城市筛选 -->
   <el-tabs v-model="cityCode" @tab-click="cityClick" type="card">
-    <el-tab-pane v-for="(item, index) in cityArr" :key="index" :label="item.cityName" :name="item.cityCode"></el-tab-pane> 
+    <el-tab-pane v-for="(item, index) in cityArr" :key="index" :label="item.cityName" :name="item.cityCode"></el-tab-pane>
   </el-tabs>
 </template>

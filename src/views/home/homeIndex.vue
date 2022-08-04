@@ -2,6 +2,7 @@
 import { defineComponent } from 'vue'
 import { useStore } from '@/store'
 import HomeList from './components/homeList.vue'
+import { IRoomListParams } from '@/api/interface'
 
 export default defineComponent({
   components: {
@@ -16,7 +17,8 @@ export default defineComponent({
   asyncData({ store, route }: any) {
     console.log('asyncData----', store, route)
     const { pageNo } = store.state
-    return store.dispatch('getRoomList', { pageNo })
+    // 断言强制 params类型
+    return store.dispatch('getRoomList', { pageNo } as IRoomListParams)
   }
 })
 

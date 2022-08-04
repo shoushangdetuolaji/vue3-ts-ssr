@@ -1,17 +1,18 @@
 import { saveLanguageApi } from '@/api/layout'
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
 import { InjectionKey } from 'vue'
-import { fetchRoomList } from '@/api/index'
+import { fetchRoomList } from '@/api/home'
+import { IRoomListParams } from '@/api/interface'
 
 // 为store state 声明类型
 export interface AllStateTypes {
   count: number,
   locale: any,
-  userStatus: Number,
+  userStatus: number,
   roomList: Array<any>,
-  pageNo: Number,
-  pageSize: Number,
-  total: Number,
+  pageNo: number,
+  pageSize: number,
+  total: number,
   cityCode: string
 }
 
@@ -67,7 +68,7 @@ export function createSSRStore() {
           }
         })
       },
-      getRoomList({ commit, state }, payload) {
+      getRoomList({ commit, state }, payload: IRoomListParams) {
         const { pageNo, cityCode = state.cityCode } = payload
         state.pageNo = pageNo
         const params = {

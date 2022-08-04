@@ -2,6 +2,7 @@
 import { useStore } from '@/store'
 import Pagination from '@/components/common/pagination.vue'
 import HomeTabs from './homeTabs.vue'
+import { IRoomListParams } from '@/api/interface'
 
 const store = useStore()
 function clickIt(item: any) {
@@ -10,7 +11,7 @@ function clickIt(item: any) {
 
 function changePage(pageNo: number) {
   console.log('父组件', pageNo)
-  store.dispatch('getRoomList', { pageNo })
+  store.dispatch('getRoomList', { pageNo } as IRoomListParams)
 }
 
 </script>

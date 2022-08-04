@@ -7,6 +7,7 @@ import { createSSRI18n } from './language/i18n'
 import airbnb from './db' // 引入数据库和对象仓库
 import { createSSRStore, key } from './store'
 import { sync } from 'vuex-router-sync'
+import { routerKey } from 'vue-router'
 
 // router.beforeEach((to, from, next) => {
 //   airbnb.airbnbDB.openStore({
@@ -45,4 +46,15 @@ export function createApp() {
     store
   }
   // app.mount('#app')
+}
+
+export function asyncDataFilter(actived: any, store: any, route: any) {
+  return Promise.all(actived.map((Component: any) => {
+    if (Component.asyncData) {
+      return Component.asyncData({
+        store,
+        route
+      })
+    }
+  }))
 }

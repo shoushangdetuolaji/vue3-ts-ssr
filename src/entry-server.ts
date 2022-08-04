@@ -1,4 +1,4 @@
-import { createApp } from './main'
+import { createApp, asyncDataFilter } from './main'
 import { renderToString } from 'vue/server-renderer'
 
 export async function render(url: string, manifest: any) {
@@ -11,14 +11,8 @@ export async function render(url: string, manifest: any) {
   console.log('匹配组件', matchedComponents)
 
   // 对所有匹配的路由组件调用 `asyncData()`
-  await Promise.all(matchedComponents.map((Component: any) => {
-    if (Component.asyncData) {
-      return Component.asyncData({
-        store,
-        route: router.currentRoute
-      })
-    }
-  }))
+  await asyncDataFilter(matchedComponents, store, router.currentRoute)
+
   const context: any = {}
   const appHtml = await renderToString(app, context)
   const state = store.state
