@@ -18,5 +18,30 @@ router.beforeEach((to, from, next) => {
 })
 
 router.isReady().then(() => {
+  router.beforeResolve((to, from, next) => {
+    const toComponents = router.resolve(to).matched.flatMap(record => Object.values(record.components))
+
+    const fromComponents = router.resolve(from).matched.flatMap(record => Object.values(record.components))
+
+    const actived = toComponents.filter((c, i) => {
+      return fromComponents[i] !== c
+    })
+
+    if (!actived.length) {
+      return next()
+    }
+    console.log('开始loading....')
+    Promise.all(actived.map((Component: any) => {
+      if (Component.asyncData) {
+        return Component.asyncData({
+          store,
+          route: router.currentRoute
+        })
+      }
+    })).then(() => {
+      console.log('结束loading....')
+      next()
+    })
+  })
   app.mount('#app')
 })

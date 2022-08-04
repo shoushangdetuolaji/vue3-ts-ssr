@@ -33,6 +33,7 @@ export default function userFormOperates(router: any, params: IRuleForm) {
         // localStorage.setItem('userStatus', status)
         store.commit('setUserStatus', status)
         router.push({ name: 'home' })
+        // window.location.href = '/home'
         proxy.$message.success(message)
       } else {
         proxy.$message.error(message)

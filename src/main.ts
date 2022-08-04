@@ -6,6 +6,7 @@ import 'element-plus/dist/index.css'
 import { createSSRI18n } from './language/i18n'
 import airbnb from './db' // 引入数据库和对象仓库
 import { createSSRStore, key } from './store'
+import { sync } from 'vuex-router-sync'
 
 // router.beforeEach((to, from, next) => {
 //   airbnb.airbnbDB.openStore({
@@ -31,6 +32,7 @@ export function createApp() {
   const store = createSSRStore()
   const router = createSSRRouter()
   const i18n = createSSRI18n()
+  sync(store, router)
 
   app.config.globalProperties.$message = ElMessage
   app.use(store, key)
