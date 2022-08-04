@@ -1,16 +1,16 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useStore } from '@/store'
+import HomeList from './components/homeList.vue'
 
 export default defineComponent({
+  components: {
+    HomeList
+  },
   setup() {
     const store = useStore()
-    function clickIt(item:any) {
-      console.log(item)
-    }
     return {
-      store,
-      clickIt
+      store
     }
   },
   asyncData({ store, route }: any) {
@@ -29,13 +29,8 @@ export default defineComponent({
   <div class="main-wapper">
     <h2 class="title">主标题</h2>
     <p class="sub-title">副标题</p>
-    <div class="home-list">
-      <div class="item" @click="clickIt(item)" v-for="(item, index) in store.state.roomList" :key="index">
-        <img :src="item.pictureUrl" :alt="item.title">
-        <p class="title">{{ item.title }}</p>
-        <p class="price">￥{{ item.price }}</p>
-      </div>
-    </div>
+    <!-- 城市筛选 -->
+    <HomeList />
   </div>
 </div>
 </template>

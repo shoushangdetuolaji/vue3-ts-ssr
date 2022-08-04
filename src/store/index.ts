@@ -8,7 +8,10 @@ export interface AllStateTypes {
   count: number,
   locale: any,
   userStatus: Number,
-  roomList: Array<any>
+  roomList: Array<any>,
+  pageNo: Number,
+  pageSize: Number,
+  total: Number
 }
 
 // 定义 injection key
@@ -24,7 +27,10 @@ export function createSSRStore() {
       count: 1,
       locale: null, // 语言包
       userStatus: 0, // 登录态
-      roomList: []
+      roomList: [],
+      pageNo: 1,
+      pageSize: 6,
+      total: 0
     },
     mutations: {
       setCount(state, payload) {
