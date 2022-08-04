@@ -1,7 +1,11 @@
-import home from '@/views/home/index.vue'
-import mine from '@/views/mine/index.vue'
-import login from '@/views/login/index.vue'
+// import home from '@/views/home/index.vue'
+// import mine from '@/views/mine/index.vue'
+// import login from '@/views/login/index.vue'
 import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
+
+const home = () => import('@/views/home/homeIndex.vue')
+const mine = () => import('@/views/mine/mineIndex.vue')
+const login = () => import('@/views/login/loginIndex.vue')
 
 const routes = [
   {
