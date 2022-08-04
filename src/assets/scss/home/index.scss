@@ -17,7 +17,7 @@
     @include main-wapper();
   }
   .home-list {
-    @include flex-layout(row, space-between, center);
+    @include flex-layout(row, flex-start, center);
     margin-left: -8px;
     margin-right: -8px;
     .item {

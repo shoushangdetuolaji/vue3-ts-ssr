@@ -11,7 +11,8 @@ export interface AllStateTypes {
   roomList: Array<any>,
   pageNo: Number,
   pageSize: Number,
-  total: Number
+  total: Number,
+  cityCode: string
 }
 
 // 定义 injection key
@@ -30,7 +31,8 @@ export function createSSRStore() {
       roomList: [],
       pageNo: 1,
       pageSize: 6,
-      total: 0
+      total: 0,
+      cityCode: 'hz'
     },
     mutations: {
       setCount(state, payload) {
@@ -66,27 +68,26 @@ export function createSSRStore() {
         })
       },
       getRoomList({ commit, state }, payload) {
-        const { pageNo } = payload
+        const { pageNo, cityCode = state.cityCode } = payload
         state.pageNo = pageNo
         const params = {
           pageNo,
-          pageSize: state.pageSize
+          pageSize: state.pageSize,
+          cityCode
         }
         return new Promise(resolve => {
-          setTimeout(() => {
-            fetchRoomList(params).then(res => {
-              const { success, result } = res
-              const orders = result.orders
-              const total = result.total
-              if (success) {
-                commit('setRoomList', orders.data)
-                console.log('获取当前房屋列表成功')
-                console.log('保存到vuex中', orders.data)
-                state.total = total
-                resolve(true)
-              }
-            })
-          }, 3000)
+          fetchRoomList(params).then(res => {
+            const { success, result } = res
+            const orders = result.orders
+            const total = result.total
+            if (success) {
+              commit('setRoomList', orders.data)
+              console.log('获取当前房屋列表成功')
+              console.log('保存到vuex中', orders.data)
+              state.total = total
+              resolve(true)
+            }
+          })
         })
       }
     }

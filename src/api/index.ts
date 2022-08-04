@@ -8,7 +8,7 @@ import { IResultOr as IResult } from './interface'
 const airbnbDB = new IndexedDB('airbnb')
 // 真实接口
 export function fetchRoomList(params: any): Promise<IResult> {
-  return http.httpRequestGet('http://110.42.184.111/api/room/room/getRoomList?cityCode=hz', params)
+  return http.httpRequestGet('http://110.42.184.111/api/room/room/getRoomList', params)
 }
 
 // Mock接口
