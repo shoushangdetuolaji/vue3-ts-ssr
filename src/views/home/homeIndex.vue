@@ -15,7 +15,8 @@ export default defineComponent({
   },
   asyncData({ store, route }: any) {
     console.log('asyncData----', store, route)
-    return store.dispatch('getRoomList')
+    const { pageNo } = store.state
+    return store.dispatch('getRoomList', { pageNo })
   }
 })
 

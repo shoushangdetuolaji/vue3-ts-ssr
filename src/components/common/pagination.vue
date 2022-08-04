@@ -6,16 +6,21 @@ const pageNo = computed(() => store.state.pageNo)
 const pageSize = computed(() => store.state.pageSize)
 const total = computed(() => store.state.total)
 
-function changePage(pageNo) {
-  console.log(pageNo)
+const emit = defineEmits<{(e: 'changePage', pageNo: number): void}>()
+
+function changePage(pageNo: number) {
+  console.log('子组件', pageNo)
+  emit('changePage', pageNo)
 }
 </script>
 
 <template>
   <el-pagination
     :current-page="pageNo"
-    :pagee-size="pageSize"
+    :page-size="pageSize"
     :total="total"
+    background
+    layout="prev, pager, next"
     @current-change="changePage">
   </el-pagination>
 </template>

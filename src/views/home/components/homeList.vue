@@ -6,6 +6,12 @@ const store = useStore()
 function clickIt(item: any) {
   console.log(item)
 }
+
+function changePage(pageNo: number) {
+  console.log('父组件', pageNo)
+  store.dispatch('getRoomList', { pageNo })
+}
+
 </script>
 
 <template>
@@ -17,7 +23,7 @@ function clickIt(item: any) {
     </div>
   </div>
   <!-- 分页 -->
-  <Pagination />
+  <Pagination @changePage="changePage" />
 </template>
 
 <style scoped>

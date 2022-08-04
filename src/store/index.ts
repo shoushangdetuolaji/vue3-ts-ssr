@@ -53,28 +53,36 @@ export function createSSRStore() {
     actions: {
       fetchCount({ commit, state }, payload) {
         setTimeout(() => {
-          this.commit('setCount', payload)
+          commit('setCount', payload)
         }, 3000)
       },
       saveLanguage({ commit, state }, language: any) {
         saveLanguageApi(language.name).then(res => {
           const { success } = res
           if (success) {
-            this.commit('setLanguage', language)
+            commit('setLanguage', language)
             console.log('保存当前语言包成功')
           }
         })
       },
-      getRoomList({ commit }) {
+      getRoomList({ commit, state }, payload) {
+        const { pageNo } = payload
+        state.pageNo = pageNo
+        const params = {
+          pageNo,
+          pageSize: state.pageSize
+        }
         return new Promise(resolve => {
           setTimeout(() => {
-            fetchRoomList().then(res => {
+            fetchRoomList(params).then(res => {
               const { success, result } = res
               const orders = result.orders
+              const total = result.total
               if (success) {
-                this.commit('setRoomList', orders.data)
+                commit('setRoomList', orders.data)
                 console.log('获取当前房屋列表成功')
                 console.log('保存到vuex中', orders.data)
+                state.total = total
                 resolve(true)
               }
             })

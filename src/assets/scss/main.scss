@@ -4,5 +4,11 @@ body, html {
 }
 
 .container {
-  min-height: calc(100vh - 404px);
+  min-height: calc(100vh - 402px);
+}
+
+.el-pagination {
+  text-align: center;
+  margin: 20px auto;
+  justify-content: center;
 }
