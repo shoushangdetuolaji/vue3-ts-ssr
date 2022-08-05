@@ -14,8 +14,10 @@ function submitForm() {
 </script>
 
 <template>
+<div v-if="roomDetail && roomDetail.info && roomDetail.owner">
   <!-- 照片墙 -->
   <el-carousel
+    v-if="roomDetail.imgs.length > 0 && roomDetail.imgs "
     trigger="click"
     height="380px"
     :interval="3000"
@@ -75,6 +77,7 @@ function submitForm() {
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <style lang="scss">

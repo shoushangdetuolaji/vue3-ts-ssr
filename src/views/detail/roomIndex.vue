@@ -15,8 +15,10 @@ export default defineComponent({
     // }
   },
   asyncData({ store, route }: any) {
-    console.log('asyncData----', store, route)
-    return store.dispatch('getRoomDetail', { id: 1 } as IRoomDetailParams)
+    console.log('asyncData----详情页', store, route.value)
+    const { roomId } = store.state
+    const { id } = route.value.params
+    return store.dispatch('getRoomDetail', { id: roomId || id } as IRoomDetailParams)
   }
 })
 </script>

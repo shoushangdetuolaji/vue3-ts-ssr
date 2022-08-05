@@ -15,7 +15,8 @@ export interface AllStateTypes {
   pageSize: number,
   total: number,
   cityCode: string,
-  roomDetail: any
+  roomDetail: any,
+  roomId: null
 }
 
 // 定义 injection key
@@ -36,7 +37,8 @@ export function createSSRStore() {
       pageSize: 6,
       total: 0,
       cityCode: 'hz',
-      roomDetail: {}
+      roomDetail: {},
+      roomId: null
     },
     mutations: {
       setCount(state, payload) {
@@ -58,6 +60,10 @@ export function createSSRStore() {
       setRoomDetail(state, payload) { // 设置房屋详情数据
         state.roomDetail = payload
         return state.roomDetail
+      },
+      setRoomId(state, payload) { // 设置房屋详情id
+        state.roomId = payload
+        return state.roomId
       }
     },
     actions: {

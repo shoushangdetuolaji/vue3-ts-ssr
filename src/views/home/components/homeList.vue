@@ -10,6 +10,7 @@ const router = useRouter()
 function clickIt(item: any) {
   const { id } = item
   router.push({ path: `/roomDetail/${id}` })
+  store.commit('setRoomId', id)
   console.log(item)
 }
 

@@ -86,7 +86,7 @@ function userLogout() {
 
 <template>
   <div class="header-common">
-    <img class="logo" src="../../assets/images/layout/logo.png" alt="爱此迎">
+    <img @click="() => { router.push({name: 'home'}) }" class="logo" src="../../assets/images/layout/logo.png" alt="爱此迎">
     <el-menu
       :default-active="activeIndex"
       class="el-menu-demo"
