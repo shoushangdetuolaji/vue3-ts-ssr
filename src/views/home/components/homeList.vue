@@ -3,9 +3,13 @@ import { useStore } from '@/store'
 import Pagination from '@/components/common/pagination.vue'
 import HomeTabs from './homeTabs.vue'
 import { IRoomListParams } from '@/api/interface'
+import { useRouter } from 'vue-router'
 
 const store = useStore()
+const router = useRouter()
 function clickIt(item: any) {
+  const { id } = item
+  router.push({ path: `/roomDetail/${id}` })
   console.log(item)
 }
 

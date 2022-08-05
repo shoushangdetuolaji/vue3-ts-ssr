@@ -6,6 +6,7 @@ import { createRouter, createMemoryHistory, createWebHistory, createWebHashHisto
 const home = () => import('@/views/home/homeIndex.vue')
 const mine = () => import('@/views/mine/mineIndex.vue')
 const login = () => import('@/views/login/loginIndex.vue')
+const roomDetail = () => import('@/views/detail/roomIndex.vue')
 
 const routes = [
   {
@@ -32,6 +33,15 @@ const routes = [
     component: login,
     meta: {
       title: '',
+      keepAlive: false
+    }
+  },
+  {
+    path: '/roomDetail/:id',
+    name: 'roomDetail',
+    component: roomDetail,
+    meta: {
+      title: '爱此迎-',
       keepAlive: false
     }
   }

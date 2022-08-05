@@ -2,7 +2,8 @@ import { saveLanguageApi } from '@/api/layout'
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
 import { InjectionKey } from 'vue'
 import { fetchRoomList } from '@/api/home'
-import { IRoomListParams } from '@/api/interface'
+import { fetchRoomDetail } from '@/api/detail'
+import { IRoomDetailParams, IRoomListParams } from '@/api/interface'
 
 // 为store state 声明类型
 export interface AllStateTypes {
@@ -13,7 +14,8 @@ export interface AllStateTypes {
   pageNo: number,
   pageSize: number,
   total: number,
-  cityCode: string
+  cityCode: string,
+  roomDetail: any
 }
 
 // 定义 injection key
@@ -33,7 +35,8 @@ export function createSSRStore() {
       pageNo: 1,
       pageSize: 6,
       total: 0,
-      cityCode: 'hz'
+      cityCode: 'hz',
+      roomDetail: {}
     },
     mutations: {
       setCount(state, payload) {
@@ -51,6 +54,10 @@ export function createSSRStore() {
       setRoomList(state, payload) { // 设置房屋列表数据
         state.roomList = payload
         return state.roomList
+      },
+      setRoomDetail(state, payload) { // 设置房屋详情数据
+        state.roomDetail = payload
+        return state.roomDetail
       }
     },
     actions: {
@@ -86,6 +93,19 @@ export function createSSRStore() {
               console.log('获取当前房屋列表成功')
               console.log('保存到vuex中', orders.data)
               state.total = total
+              resolve(true)
+            }
+          })
+        })
+      },
+      // 房屋详情接口
+      getRoomDetail({ commit, state}, payload: IRoomDetailParams) {
+        return new Promise(resolve => {
+          fetchRoomDetail(payload).then(res => {
+            const { success, result } = res
+            if (success) {
+              console.log('详情页数据保存到vuex中', result)
+              commit('setRoomDetail', result)
               resolve(true)
             }
           })
