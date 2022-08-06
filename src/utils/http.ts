@@ -51,7 +51,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 const defaultConfig = {
   timeout: 5000,
-  baseUrl: ''
+  baseURL: import.meta.env.PROD ? '' : 'http://localhost:3000'
 }
 
 class Http {
