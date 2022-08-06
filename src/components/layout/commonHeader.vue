@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, defineEmits, getCurrentInstance } from 'vue'
+import { ref, defineEmits, getCurrentInstance, defineAsyncComponent } from 'vue'
 import zhCn from 'element-plus/dist/locale/zh-cn.js'
 import en from 'element-plus/dist/locale/en.js'
 import { fetchLanguageApi, saveLanguageApi } from '../../api/layout'
@@ -9,6 +9,7 @@ import { userLogoutApi } from '@/api/login'
 import { IResultOr } from '@/api/interface'
 import { useStore } from '@/store'
 
+const OrderPopover = defineAsyncComponent(() => import('@/views/order/components/orderPopover.vue'))
 const router = useRouter()
 const { proxy }: any = getCurrentInstance()
 const activeIndex = ref('orders')
@@ -32,7 +33,10 @@ function handleSelect(e: any) {
     router.push({ name: 'login' })
   } else if (e === 'logout') {
     userLogout()
+  } else if (e === 'orders') {
+    store.commit('setOrderVisible', true)
   }
+
   console.log(e)
 }
 
@@ -93,7 +97,18 @@ function userLogout() {
       mode="horizontal"
       @select="handleSelect"
     >
-      <el-menu-item index="orders">{{ t("header.orders") }}</el-menu-item>
+      <el-menu-item index="orders">{{ t("header.orders") }}
+        <template v-if="store.state.orderVisible">
+          <Suspense>
+            <template #default>
+              <OrderPopover />
+            </template>
+            <template #fallback>
+              loading...
+            </template>
+          </Suspense>
+        </template>
+      </el-menu-item>
       <el-menu-item index="records">{{ t("header.records") }}</el-menu-item>
       <el-sub-menu index="language">
         <template #title>{{ t("header.language") }}</template>
