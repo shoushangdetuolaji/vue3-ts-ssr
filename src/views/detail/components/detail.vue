@@ -1,16 +1,41 @@
 <script setup lang="ts">
-import { computed, reactive } from 'vue'
+import { computed, getCurrentInstance, reactive, ref } from 'vue'
 import { useStore } from '@/store'
+import { saveOrderApi } from '@/api/order'
+import { useRoute } from 'vue-router'
 
+const { proxy }: any = getCurrentInstance()
 const store = useStore()
+const route = useRoute()
 const roomDetail = computed(() => store.state.roomDetail)
 const orderForm = reactive({
   personNumber: 1
 })
+const ruleForm = ref()
 function submitForm() {
-
+  saveOrder()
 }
-
+function saveOrder() {
+  const { id: orderId } = route.params
+  const { title, price, imgs } = roomDetail.value
+  const { personNumber } = orderForm
+  const params = {
+    orderId,
+    title,
+    price,
+    personNumber,
+    pictureUrl: imgs[0]
+  }
+  saveOrderApi(params).then((res) => {
+    console.log(res)
+    const { success, message } = res
+    if (success) {
+      console.log('成功')
+    } else {
+      proxy.$message.error(message)
+    }
+  })
+}
 </script>
 
 <template>
@@ -64,7 +89,7 @@ function submitForm() {
         <p class="price">
           <span>￥{{ roomDetail.price }}</span> / 晚
         </p>
-        <el-form ref="orderForm" :model="orderForm" label-position="top" class="order-ruleForm">
+        <el-form ref="ruleForm" :model="orderForm" label-position="top" class="order-ruleForm">
           <el-form-item prop="personNumber" label="人数">
             <select v-model="orderForm.personNumber">
               <option v-for="item in 3" :value="item" :key="item">{{ item }}</option>

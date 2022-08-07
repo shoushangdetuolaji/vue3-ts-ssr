@@ -6,8 +6,9 @@ export default class DB {
   }
   
   // 打开数据库
+  // 如果新增的对象仓库没有的话 需要更新版本号 就会升级
   public openStore(stores: any) {
-    const request = window.indexedDB.open(this.dbName, 4)
+    const request = window.indexedDB.open(this.dbName, 5)
     return new Promise((resolve, reject) => {
       request.onsuccess = (event: any) => {
         console.log('数据库打开成功')
