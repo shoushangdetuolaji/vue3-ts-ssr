@@ -80,6 +80,7 @@ function userLogout() {
       // localStorage.setItem('userStatus', 0)
       router.push({ name: 'login' })
       store.commit('setUserStatus', 0)
+      localStorage.setItem('userId', '')
     } else {
       proxy.$message.error(message)
     }

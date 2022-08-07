@@ -30,9 +30,9 @@ export default function userFormOperates(router: any, params: IRuleForm) {
   function userLogin(params: IRuleForm) {
     userLoginApi(params).then((res: IResultOr) => {
       const { success, message, result } = res
-      const { status } = result
       if (success) {
-        // localStorage.setItem('userStatus', status)
+        const { status, userId } = result
+        localStorage.setItem('userStatus', userId)
         store.commit('setUserStatus', status)
         // 假如存在重定向
         const { redirect }: any = route.query

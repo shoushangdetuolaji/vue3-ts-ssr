@@ -59,7 +59,7 @@ function closeMask() {
   <Teleport to="#app">
     <div class="mask" @click="closeMask"></div>
   </Teleport>
-  <ul>
+  <ul v-if="orderData.length > 0">
     <li v-for="(item, index) in orderData" :key="index">
       <img :src="item.pictureUrl" alt="">
       <div class="mess">
@@ -68,6 +68,9 @@ function closeMask() {
       </div>
     </li>
   </ul>
+  <div v-else class="loading-block">
+    空空如也也~
+  </div>
 </template>
 
 <style scoped lang="scss">

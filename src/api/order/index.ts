@@ -52,7 +52,6 @@ export async function saveOrderApi(params: any) {
 // Mock接口：订单列表
 export async function fetchOrderApi() {
   const userId = localStorage.getItem('userId')
-
   const loading = ElLoading.service({
     lock: true,
     background: 'rgba(0, 0, 0, 0.1)'
@@ -62,6 +61,7 @@ export async function fetchOrderApi() {
       setTimeout(() => {
         loading.close()
       }, 200)
+      // 用户数据隔离
       res = res.filter((item: any) => {
         return item.userId === userId
       })
