@@ -30,7 +30,7 @@ function saveOrder() {
     console.log(res)
     const { success, message } = res
     if (success) {
-      console.log('成功')
+      proxy.$message.success('预定成功')
     } else {
       proxy.$message.error(message)
     }

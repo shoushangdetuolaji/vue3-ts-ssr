@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { fetchOrderApi } from '@/api/order'
 import { getCurrentInstance, reactive } from 'vue'
+import { useStore } from '@/store'
 
 // const count = ref(0)
 // function fetchApi() {
@@ -14,6 +15,9 @@ import { getCurrentInstance, reactive } from 'vue'
 // await fetchApi()
 let orderData = reactive<Array<any>>([])
 const { proxy }: any = getCurrentInstance()
+const store = useStore()
+
+// 房屋订单中心列表
 function fetchOrder() {
   return fetchOrderApi().then((res) => {
     console.log(res)
@@ -27,9 +31,18 @@ function fetchOrder() {
   })
 }
 await fetchOrder()
+
+// 关闭遮罩层popover
+function closeMask() {
+  store.commit('setOrderVisible', false)
+}
+
 </script>
 
 <template>
+  <Teleport to="#app">
+    <div class="mask" @click="closeMask"></div>
+  </Teleport>
   <ul>
     <li v-for="(item, index) in orderData" :key="index">
       <img :src="item.pictureUrl" alt="">

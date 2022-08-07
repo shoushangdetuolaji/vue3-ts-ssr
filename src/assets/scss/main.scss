@@ -12,3 +12,21 @@ body, html {
   margin: 20px auto;
   justify-content: center;
 }
+
+.ml-10{
+  margin-left: 10px;
+}
+
+.loading-block{
+  @include placeholder-order(center);
+}
+
+.mask{
+  position:fixed;
+  width: 100%;
+  background-color: transparent;
+  z-index: 10;
+  left:0;
+  top:0;
+  height: 100%;
+}
