@@ -2,18 +2,29 @@
 import { computed, getCurrentInstance, reactive, ref } from 'vue'
 import { useStore } from '@/store'
 import { saveOrderApi } from '@/api/order'
-import { useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 const { proxy }: any = getCurrentInstance()
 const store = useStore()
 const route = useRoute()
+const router = useRouter()
 const roomDetail = computed(() => store.state.roomDetail)
 const orderForm = reactive({
   personNumber: 1
 })
 const ruleForm = ref()
 function submitForm() {
-  saveOrder()
+  if (store.state.userStatus) {
+    saveOrder()
+  } else {
+    const { pathname } = window.location
+    router.replace({
+      path: '/login',
+      query: {
+        redirect: pathname
+      }
+    })
+  }
 }
 function saveOrder() {
   const { id: orderId } = route.params

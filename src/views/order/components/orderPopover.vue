@@ -2,6 +2,7 @@
 import { fetchOrderApi } from '@/api/order'
 import { getCurrentInstance, reactive } from 'vue'
 import { useStore } from '@/store'
+import { useRouter } from 'vue-router'
 
 // const count = ref(0)
 // function fetchApi() {
@@ -16,6 +17,7 @@ import { useStore } from '@/store'
 let orderData = reactive<Array<any>>([])
 const { proxy }: any = getCurrentInstance()
 const store = useStore()
+const router = useRouter()
 
 // 房屋订单中心列表
 function fetchOrder() {
@@ -30,6 +32,20 @@ function fetchOrder() {
     }
   })
 }
+
+if (store.state.userStatus) {
+  await fetchOrder()
+} else {
+  const { pathname } = window.location
+  router.replace({
+    path: '/login',
+    query: {
+      redirect: pathname
+    }
+  })
+  closeMask()
+}
+
 await fetchOrder()
 
 // 关闭遮罩层popover
