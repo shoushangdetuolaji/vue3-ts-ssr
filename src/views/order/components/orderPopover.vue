@@ -53,6 +53,14 @@ function closeMask() {
   store.commit('setOrderVisible', false)
 }
 
+function toDetail(item: any) {
+  const { orderId: id } = item
+  router.push({
+    path: `/roomDetail/${id}`
+  })
+  store.commit('setRoomId', id)
+}
+
 </script>
 
 <template>
@@ -60,7 +68,7 @@ function closeMask() {
     <div class="mask" @click="closeMask"></div>
   </Teleport>
   <ul v-if="orderData.length > 0">
-    <li v-for="(item, index) in orderData" :key="index">
+    <li v-for="(item, index) in orderData" :key="index" @click="toDetail(item)">
       <img :src="item.pictureUrl" alt="">
       <div class="mess">
         <p class="title">{{ item.title }}</p>

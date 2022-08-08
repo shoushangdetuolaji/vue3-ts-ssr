@@ -33,13 +33,22 @@ onMounted(() => {
     })
   }
 })
+
+function toDetail(item: any) {
+  const { recordId: id } = item
+  router.push({
+    path: `/roomDetail/${id}`
+  })
+  store.commit('setRoomId', id)
+  console.log(item)
+}
 </script>
 
 <template>
   <div class="record-page">
     <div class="main-wrapper">
       <div class="column-style">
-        <div class="item" v-for="(item, index) in recordData" :key="index">
+        <div class="item" v-for="(item, index) in recordData" :key="index" @click="toDetail(item)">
           <el-image :src="item.pictureUrl" :alt="item.title"></el-image>
           <p class="title">{{ item.title }}</p>
           <p class="price">￥{{ item.price }}</p>
