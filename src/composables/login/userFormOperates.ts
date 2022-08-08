@@ -32,7 +32,7 @@ export default function userFormOperates(router: any, params: IRuleForm) {
       const { success, message, result } = res
       if (success) {
         const { status, userId } = result
-        localStorage.setItem('userStatus', userId)
+        localStorage.setItem('userId', userId)
         store.commit('setUserStatus', status)
         // 假如存在重定向
         const { redirect }: any = route.query
