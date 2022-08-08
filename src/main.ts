@@ -7,7 +7,6 @@ import { createSSRI18n } from './language/i18n'
 import airbnb from './db' // 引入数据库和对象仓库
 import { createSSRStore, key } from './store'
 import { sync } from 'vuex-router-sync'
-import { routerKey } from 'vue-router'
 
 // router.beforeEach((to, from, next) => {
 //   airbnb.airbnbDB.openStore({
