@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, defineEmits, getCurrentInstance, defineAsyncComponent } from 'vue'
+import { ref, defineEmits, getCurrentInstance, defineAsyncComponent, onMounted } from 'vue'
 import zhCn from 'element-plus/dist/locale/zh-cn.js'
 import en from 'element-plus/dist/locale/en.js'
 import { fetchLanguageApi, saveLanguageApi } from '../../api/layout'
@@ -59,16 +59,26 @@ function getLanguage() {
     const { name } = result
     if (success) {
       if (name === 'zh') {
-        emit('changeLang', zhCn)
+        store.dispatch('saveLanguage', zhCn)
+        localeLanguage.value = name
       } else if (name === 'en') {
-        emit('changeLang', en)
+        store.dispatch('saveLanguage', en)
+        localeLanguage.value = name
       }
+      // if (name === 'zh') {
+      //   emit('changeLang', zhCn)
+      // } else if (name === 'en') {
+      //   emit('changeLang', en)
+      // }
       console.log('获取当前语言包成功')
     }
   })
 }
 
-// getLanguage()
+onMounted(() => {
+  // 服务端渲染的时候 会屏蔽该办法 因为拿不到dom
+  getLanguage()
+})
 
 // const userStatus = localStorage.getItem('userStatus')
 
@@ -122,7 +132,7 @@ function userLogout() {
         <template #title>
           <img class="avatar" src="../../assets/images/layout/avatar.jpg" alt="个人中心" />
         </template>
-        <el-menu-item index="logout">退出</el-menu-item>
+        <el-menu-item index="logout">{{ t("login.logout") }}</el-menu-item>
       </el-sub-menu>
       <el-menu-item index="login" v-else>{{ t("login.loginTab") }}/{{ t("login.signTab") }}</el-menu-item>
     </el-menu>

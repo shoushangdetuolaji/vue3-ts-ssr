@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, getCurrentInstance, reactive, ref } from 'vue'
+import { computed, getCurrentInstance, onMounted, reactive, ref } from 'vue'
 import { useStore } from '@/store'
 import { saveOrderApi } from '@/api/order'
 import { useRouter, useRoute } from 'vue-router'
@@ -67,7 +67,9 @@ function saveRecord() {
   })
 }
 
-saveRecord()
+onMounted(() => {
+  saveRecord()
+})
 
 </script>
 

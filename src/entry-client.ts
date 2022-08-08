@@ -15,6 +15,7 @@ router.beforeEach((to, from, next) => {
     ...airbnb.recordObjectStore
   }).then((res: any) => {
     console.log('初始化所有对象仓库', res)
+    localStorage.getItem('userId') && store.commit('setUserStatus', 1)
     next()
   })
 })

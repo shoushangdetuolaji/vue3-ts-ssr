@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { fetchRecordApi } from '@/api/record'
-import { getCurrentInstance, ref, reactive } from 'vue'
+import { getCurrentInstance, ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from '@/store'
 
@@ -25,18 +25,20 @@ function fetchRecord() {
     }
   })
 }
-if (store.state.userStatus) {
-  fetchRecord()
-} else {
-  const { pathname } = window.location
-  router.replace({
-    path: '/login',
-    query: {
-      redirect: pathname
-    }
-  })
-}
-fetchRecord()
+
+onMounted(() => {
+  if (store.state.userStatus) {
+    fetchRecord()
+  } else {
+    const { pathname } = window.location
+    router.replace({
+      path: '/login',
+      query: {
+        redirect: pathname
+      }
+    })
+  }
+})
 </script>
 
 <template>
