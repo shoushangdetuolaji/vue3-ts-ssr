@@ -7,6 +7,7 @@ const home = () => import('@/views/home/homeIndex.vue')
 const mine = () => import('@/views/mine/mineIndex.vue')
 const login = () => import('@/views/login/loginIndex.vue')
 const roomDetail = () => import('@/views/detail/roomIndex.vue')
+const record = () => import('@/views/record/recordIndex.vue')
 
 const routes = [
   {
@@ -42,6 +43,15 @@ const routes = [
     component: roomDetail,
     meta: {
       title: '爱此迎-',
+      keepAlive: false
+    }
+  },
+  {
+    path: '/records',
+    name: 'records',
+    component: record,
+    meta: {
+      title: '',
       keepAlive: false
     }
   }
