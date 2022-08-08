@@ -8,9 +8,9 @@ $orange: rgba(255, 81, 0, 0.842);
 }
 
 // 主体基本样式
-@mixin main-wapper {
-  width: 1080px;
-  margin: 0 auto;
+@mixin main-wapper($tb:40px) {
+  width: 1048px;
+  margin:$tb auto;
 }
 
 // flex布局
