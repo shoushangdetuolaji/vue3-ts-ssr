@@ -3,6 +3,7 @@ import { computed, getCurrentInstance, reactive, ref } from 'vue'
 import { useStore } from '@/store'
 import { saveOrderApi } from '@/api/order'
 import { useRouter, useRoute } from 'vue-router'
+import { saveRecordApi } from '@/api/record'
 
 const { proxy }: any = getCurrentInstance()
 const store = useStore()
@@ -26,6 +27,8 @@ function submitForm() {
     })
   }
 }
+
+// 立即预定
 function saveOrder() {
   const { id: orderId } = route.params
   const { title, price, imgs } = roomDetail.value
@@ -47,6 +50,25 @@ function saveOrder() {
     }
   })
 }
+
+// 保存历史足迹
+function saveRecord() {
+  const { id: recordId } = route.params
+  const { title, price, imgs, personNumber } = roomDetail.value
+  const params = { recordId, title, price, personNumber, pictureUrl: imgs[0] }
+  saveRecordApi(params).then((res) => {
+    console.log(res)
+    const { success, message } = res
+    if (success) {
+      proxy.$message.success('记录成功')
+    } else {
+      proxy.$message.error(message)
+    }
+  })
+}
+
+saveRecord()
+
 </script>
 
 <template>
