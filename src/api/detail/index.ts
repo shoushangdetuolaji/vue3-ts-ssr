@@ -4,5 +4,5 @@ import { IResultOr as IResult, IRoomDetailParams } from '../interface'
 
 // 真实接口--首页房屋详情接口
 export function fetchRoomDetail(params: IRoomDetailParams): Promise<IResult> {
-  return http.httpRequestGet('/release/api/room/room/getRoomDetail', params)
+  return http.httpRequestGet('/api/room/room/getRoomDetail', params)
 }
