@@ -7,11 +7,13 @@ import * as path from 'path'
 // import AutoImport from 'unplugin-auto-import/vite'
 // import Components from 'unplugin-vue-components/vite'
 // import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import vitePluginCompression from 'vite-plugin-compression'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue()
+    vue(),
+    vitePluginCompression() // 代码压缩gizp
     // 按需引入配置
     // AutoImport({
     //   resolvers: [ElementPlusResolver()]
