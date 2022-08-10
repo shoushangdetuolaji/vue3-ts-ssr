@@ -4,7 +4,7 @@ export default class DB {
   constructor(dbName: string) {
     this.dbName = dbName
   }
-  
+
   // 打开数据库
   // 如果新增的对象仓库没有的话 需要更新版本号 就会升级
   public openStore(stores: any) {

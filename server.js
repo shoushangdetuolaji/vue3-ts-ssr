@@ -56,7 +56,6 @@ async function createServer() {
       // 4. 渲染应用的 HTML。这假设 entry-server.js 导出的 `render`
       //    函数调用了适当的 SSR 框架 API。
       //    例如 ReactDOMServer.renderToString()
-      
       // 预加载针对于生产环境用就好，开发环境不需要了
       const manifest = require('./dist/client/ssr-manifest.json')
       const { appHtml, state, preloadLinks } = await render(url, manifest)

@@ -111,7 +111,7 @@ export function createSSRStore() {
         })
       },
       // 房屋详情接口
-      getRoomDetail({ commit, state}, payload: IRoomDetailParams) {
+      getRoomDetail({ commit, state }, payload: IRoomDetailParams) {
         return new Promise(resolve => {
           fetchRoomDetail(payload).then(res => {
             const { success, result } = res

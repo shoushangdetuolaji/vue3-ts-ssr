@@ -2,7 +2,7 @@
 import { ref, defineEmits, getCurrentInstance, defineAsyncComponent, onMounted } from 'vue'
 import zhCn from 'element-plus/dist/locale/zh-cn.js'
 import en from 'element-plus/dist/locale/en.js'
-import { fetchLanguageApi, saveLanguageApi } from '../../api/layout'
+import { fetchLanguageApi } from '../../api/layout'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { userLogoutApi } from '@/api/login'
@@ -14,7 +14,7 @@ const router = useRouter()
 const { proxy }: any = getCurrentInstance()
 const activeIndex = ref('orders')
 const store = useStore()
-
+/* eslint-disable */
 const emit = defineEmits<{(e: 'changeLang', language: any): void}>()
 const { locale: localeLanguage, t } = useI18n()
 
@@ -38,8 +38,7 @@ function handleSelect(e: any) {
   } else if (e === 'records') {
     router.push({ name: 'records' })
   }
-
-  console.log(e)
+  console.log('handleSelect_Header', e)
 }
 
 // MoCK接口: 保存当前语言包
@@ -65,12 +64,13 @@ function getLanguage() {
         store.dispatch('saveLanguage', en)
         localeLanguage.value = name
       }
+      // 通过组件传值
       // if (name === 'zh') {
       //   emit('changeLang', zhCn)
       // } else if (name === 'en') {
       //   emit('changeLang', en)
       // }
-      console.log('获取当前语言包成功')
+      console.log('commonHeader获取当前语言包成功')
     }
   })
 }
@@ -87,9 +87,8 @@ function userLogout() {
   userLogoutApi().then((res: IResultOr) => {
     const { success, message } = res
     if (success) {
-      proxy.$message.success(message)
+      // proxy.$message.success(message)
       // 修改登录状态
-      // localStorage.setItem('userStatus', 0)
       router.push({ name: 'login' })
       store.commit('setUserStatus', 0)
       localStorage.setItem('userId', '')

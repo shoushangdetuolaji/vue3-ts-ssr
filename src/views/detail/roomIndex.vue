@@ -2,7 +2,7 @@
 import { defineComponent, watch, watchEffect} from 'vue'
 import RoomDetail from './components/detail.vue'
 import { IRoomDetailParams } from '@/api/interface'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useStore } from '@/store'
 
 export default defineComponent({
