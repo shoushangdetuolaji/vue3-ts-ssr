@@ -6,13 +6,12 @@ export async function render(url: string, manifest: any) {
   await router.push(url)
   await router.isReady()
 
-  const matchedComponents = router.currentRoute.value.matched.flatMap(record => Object.values(record.components))
-
+  const matchedComponents = router.currentRoute.value.matched.flatMap(record =>
+    Object.values(record.components)
+  )
   console.log('匹配组件', matchedComponents)
-
   // 对所有匹配的路由组件调用 `asyncData()`
   await asyncDataFilter(matchedComponents, store, router.currentRoute)
-
   const context: any = {}
   const appHtml = await renderToString(app, context)
   const state = store.state

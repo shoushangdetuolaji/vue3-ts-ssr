@@ -60,7 +60,9 @@ async function createServer() {
       const manifest = require('./dist/client/ssr-manifest.json')
       const { appHtml, state, preloadLinks } = await render(url, manifest)
       // 5. 注入渲染后的应用程序 HTML 到模板中。
-      const html = template.replace('<!--preload-links-->', appHtml).replace(`<!--ssr-outlet-->`, appHtml).replace('\'<!--vuex-state-->\'', JSON.stringify(state))
+      const html = template.replace('<!--preload-links-->', preloadLinks)
+        .replace('<!--ssr-outlet-->', appHtml)
+        .replace('\'<!--vuex-state-->\'', JSON.stringify(state))
       // 6. 返回渲染后的 HTML。
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {

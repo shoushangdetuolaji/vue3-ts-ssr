@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { fetchRecordApi } from '@/api/record'
-import { getCurrentInstance, ref, reactive, onMounted } from 'vue'
+import { getCurrentInstance, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from '@/store'
 
