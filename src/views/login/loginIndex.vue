@@ -50,7 +50,6 @@ function submitForm() {
         <el-form
           ref="ruleFormRef"
           :model="ruleForm"
-          :rules="rules"
           label-width="120px">
           <el-form-item prop="mobile">
             <el-input :placeholder="t('login.placeMobile')" v-model="ruleForm.mobile"></el-input>
@@ -59,7 +58,7 @@ function submitForm() {
             <el-input type="password" :placeholder="t('login.placePass')" v-model="ruleForm.password"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button @click="submitForm()">{{ loginText }}</el-button>
+            <el-button @click="submitForm">{{ loginText }}</el-button>
           </el-form-item>
         </el-form>
       </div>
