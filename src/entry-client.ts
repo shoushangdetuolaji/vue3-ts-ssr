@@ -1,5 +1,6 @@
 import { createApp, asyncDataFilter } from './main'
 import airbnb from './db' // 引入数据库和对象仓库
+import { title } from 'process'
 
 const { app, router, store } = createApp()
 
@@ -40,4 +41,23 @@ router.isReady().then(() => {
     })
   })
   app.mount('#app')
+})
+
+router.afterEach((to, from, next) => {
+  const { roomDetail } = store.state
+  const { title: roomTitle = '', owner } = roomDetail || {}
+  const { introduce = '' } = owner || {}
+  const { meta } = to
+  const { title, keywords, description } = meta
+  // 一些判空处理 防止客户端路由跳转 页面meta标签数据本地缓存不刷新
+  if (title) {
+    document.title = `${title}${roomTitle}`
+  } else {
+    document.title = ''
+  }
+  const keywordsMeta = document.querySelector('meta[name="keywords"]')
+  keywordsMeta && keywordsMeta.setAttribute('content', `${keywords}${introduce}`)
+
+  const descriptionMeta = document.querySelector('meta[name="description"]')
+  descriptionMeta?.setAttribute('content', `${description}${introduce}`)
 })
