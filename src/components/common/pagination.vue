@@ -21,6 +21,8 @@ function changePage(pageNo: number) {
     :total="total"
     background
     layout="prev, pager, next"
+    prev-text="<<"
+    next-text=">>"
     @current-change="changePage">
   </el-pagination>
 </template>

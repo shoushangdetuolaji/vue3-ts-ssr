@@ -7,7 +7,7 @@ import { useRouter } from 'vue-router'
 
 const store = useStore()
 const router = useRouter()
-function clickIt(item: any) {
+function toDetail(item: any) {
   const { id } = item
   router.push({ path: `/roomDetail/${id}` })
   store.commit('setRoomId', id)
@@ -24,13 +24,22 @@ function changePage(pageNo: number) {
 <template>
   <!-- 城市筛选 -->
   <HomeTabs />
-  <div class="home-list">
-    <div class="item" @click="clickIt(item)" v-for="(item, index) in store.state.roomList" :key="index">
-      <img :src="item.pictureUrl" :alt="item.title">
-      <p class="title">{{ item.title }}</p>
-      <p class="price">￥{{ item.price }}</p>
+  <!-- 首页列表数据 -->
+  <div>
+    <div class="home-list">
+      <div
+        class="item"
+        @click="toDetail(item)"
+        v-for="(item, index) in store.state.roomList"
+        :key="index"
+      >
+        <img :src="item.pictureUrl" :alt="item.title" />
+        <p class="title">{{ item.title }}</p>
+        <p class="price">¥{{ item.price }}元</p>
+      </div>
     </div>
   </div>
+
   <!-- 分页 -->
   <Pagination @changePage="changePage" />
 </template>

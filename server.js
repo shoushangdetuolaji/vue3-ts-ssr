@@ -22,7 +22,7 @@ async function createServer() {
     app.use(vite.middlewares)
   } else {
     // 生产环境
-    app.use(serveStatic(path.resolve(__dirname, 'dist/client')))
+    app.use(serveStatic(path.resolve(__dirname, 'dist/client'), { index: false }))
   }
 
   app.use('*', async (req, res) => {
@@ -58,7 +58,7 @@ async function createServer() {
       //    例如 ReactDOMServer.renderToString()
       // 预加载针对于生产环境用就好，开发环境不需要了
       const manifest = require('./dist/client/ssr-manifest.json')
-      const { appHtml, state, preloadLinks } = await render(url, manifest)
+      const { appHtml, state, preloadLinks = '' } = await render(url, manifest)
       // 5. 注入渲染后的应用程序 HTML 到模板中。
       const { roomDetail } = state
       const { title: roomTitle = '', owner } = roomDetail || {}

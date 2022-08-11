@@ -1,7 +1,7 @@
 // import home from '@/views/home/index.vue'
 // import mine from '@/views/mine/index.vue'
 // import login from '@/views/login/index.vue'
-import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
+import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory, scrollBehavior } from 'vue-router'
 
 const home = () => import('@/views/home/homeIndex.vue')
 const mine = () => import('@/views/mine/mineIndex.vue')
@@ -10,6 +10,10 @@ const roomDetail = () => import('@/views/detail/roomIndex.vue')
 const record = () => import('@/views/record/recordIndex.vue')
 
 const routes = [
+  {
+    path: '/',
+    redirect: '/home'
+  },
   {
     path: '/home',
     name: 'home',
@@ -79,6 +83,16 @@ export function createSSRRouter() {
     // 在客户端渲染使用createWebHistory方法
     // 在服务端需要使用createMemoryHistory方法
     history: import.meta.env.SSR ? createMemoryHistory() : createWebHistory(),
-    routes
+    routes,
+    scrollBehavior(to, from, savedPosition): void {
+      console.log(savedPosition)
+      let top
+      if (savedPosition) {
+        top = savedPosition.top
+      } else {
+        top = 0
+      }
+      window.scrollTo(0, top)
+    }
   })
 }

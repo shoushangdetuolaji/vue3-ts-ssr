@@ -1,12 +1,15 @@
-import DB from '../../utils/indexedDB'
+/**
+ * code: '000000'表示'操作成功'；code: '000001'表示'数据已存在'；code: '000002'表示'密码不正确'；
+ * code: '000003'表示'手机号不正确'；code: '000004'表示'其他异常'；code: '000005'表示'登录过期'；
+ */
+
+// import DB from '../../utils/indexedDB'
+import airbnb from '../../db'
 import { ElLoading } from 'element-plus'
-const airbnbDB = new DB('airbnb')
-interface IResultOr { // 定义interface规范返回的结果数据
-  code: string,
-  success: boolean,
-  message: string,
-  result: any
-}
+import { IResultOr } from '../interface'
+
+const storeName = Object.keys(airbnb.languageObjectStore)[0]
+// const airbnbDB = new DB('airbnb')
 
 // Mock接口：保存当前语言包
 export async function saveLanguageApi(lang: any) {
@@ -14,14 +17,8 @@ export async function saveLanguageApi(lang: any) {
     lock: true,
     background: 'rgba(0, 0, 0, 0.1)'
   })
-  await airbnbDB.openStore('language', 'id', ['name'])
-  const resultOr: IResultOr = await airbnbDB.getItem('language', 1).then(res => {
-    return {
-      code: '000000',
-      message: '操作成功',
-      result: res || null,
-      success: true
-    }
+  const resultOr: IResultOr = await airbnb.airbnbDB.getItem(storeName, 1).then(res => {
+    return { code: '000000', message: '操作成功', result: res || null, success: true }
   })
   const { success } = resultOr
   let obj = {}
@@ -30,7 +27,7 @@ export async function saveLanguageApi(lang: any) {
   } else {
     obj = { name: lang }
   }
-  const result: IResultOr = await airbnbDB.updateItem('language', obj).then(res => {
+  const result: IResultOr = await airbnb.airbnbDB.updateItem('language', obj).then(res => {
     setTimeout(() => {
       loading.close()
     }, 200)
@@ -50,17 +47,11 @@ export async function fetchLanguageApi() {
     lock: true,
     background: 'rgba(0, 0, 0, 0.1)'
   })
-  await airbnbDB.openStore('language', 'id', ['name'])
-  const result: IResultOr = await airbnbDB.getItem('language', 1).then((res: any) => {
+  const result: IResultOr = await airbnb.airbnbDB.getItem(storeName, 1).then(res => {
     setTimeout(() => {
       loading.close()
     }, 200)
-    return {
-      code: '000000',
-      message: '操作成功',
-      result: res || null,
-      success: true
-    }
+    return { code: '000000', message: '操作成功', result: res || null, success: true }
   })
   return result
 }
