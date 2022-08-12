@@ -22,6 +22,7 @@ async function createServer() {
     app.use(vite.middlewares)
   } else {
     // 生产环境
+    // 部署到服务器需要添加Index: false 是域名为ip的时候的问题吗?
     app.use(serveStatic(path.resolve(__dirname, 'dist/client'), { index: false }))
   }
 
