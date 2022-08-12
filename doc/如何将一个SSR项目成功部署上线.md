@@ -5,6 +5,12 @@
 - 发布上线、screen守护进程
 
 
+### 需要上传的文件到服务器
+- server.js
+- package.json
+- dist
+
+
 nginx.conf的配置
 ```
 #打开gzip
@@ -46,3 +52,20 @@ netstat -ntulp
 
 杀死进程
 kill -9 进程号pid
+
+
+### Screen进程守护
+
+查看版本
+`screen -v`
+
+自定义程序的名字
+`screen -S [进程名字]` -- screen -s Aircnc-ssr
+
+`ctrl A+D` 进入受进程
+
+开启
+`screen -X -S [进程名字]` -- screen -X -S Aircnc-ssr
+
+关闭
+`screen -X -S [进程名字] quit`
